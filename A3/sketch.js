@@ -1,7 +1,7 @@
 function setup() 
 {
   createCanvas(500, 500);
-
+    //setup a lot of user interactions.
   encryptInput = createInput();
   encryptInput.position(0, 40);
   encryptInput.input(onlyAllowLetters);
@@ -21,9 +21,9 @@ function setup()
   keyInput.position(0, 300);  
 }
 
-let SecretMessage = "";
+let SecretMessage = ""; //global variable
 
-function draw() 
+function draw() //setup the visual side of things for the en/decrypter, as well as allow input to be recieved on the buttons
 {
    background(255);
    textSize(20);
@@ -40,38 +40,40 @@ function draw()
    decryptButton.mousePressed(decryptFunction);
 }
 
+//ENCRPYT + DECRYPT CODE ADAPTED FROM PSEUDOCODE: https://stackoverflow.com/questions/64189794/caesar-cipher-in-p5js
+
 let alph = "abcdefghijklmnopqrstuvwxyz";
 
 let inputs = [];
 function encryptFunction()
 {
   const initial = encryptInput.value().toLowerCase();
-  const shift = (keyInput.value()) % 26;
+  const shift = (keyInput.value()) % 26; //use the modulus function to restrict the range of the input down to 26, and use the remainder as the shift value.
   let output = "";
-  for (let c = 0; c < initial.length; c++) 
+  for (let c = 0; c < initial.length; c++) //for every character in the input
   {
-    if (alph.includes(initial[c])) 
+    if (alph.includes(initial[c])) //if it is in the alphabet
     {
-      output += alph[(alph.indexOf(initial[c]) + shift + 26) % 26];
+      output += alph[(alph.indexOf(initial[c]) + shift + 26) % 26]; //shift its index by the shift amount, and modulus it back so it doesn't overflow past 'z'.
     } 
     else 
     {
       output += initial[c];
     }
   }
-  SecretMessage = output;
+  SecretMessage = output; 
 }
 
 function decryptFunction()
 {
   const initial = decryptInput.value().toLowerCase();
-  const shift = (keyInput.value() % 26);
+  const shift = (keyInput.value() % 26); //use the modulus function to restrict the range of the input down to 26, and use the remainder as the shift value.
   let output = "";
-  for (let c = 0; c < initial.length; c++) 
+  for (let c = 0; c < initial.length; c++) //for every character in the input
   {
     if (alph.includes(initial[c])) 
     {
-      output += alph[(alph.indexOf(initial[c]) - shift + 26) % 26];
+      output += alph[(alph.indexOf(initial[c]) - shift + 26) % 26];//shift its index by the shift amount, and modulus it back so it doesn't overflow past 'a'.
     } 
     else 
     {
@@ -85,7 +87,7 @@ function onlyAllowNonNegativeIntegers()
 {
   let val = this.value();
   
-  // Remove any non-number characters
+  // Remove any non-number characters [e.g., letters or the negative sign]
   let cleaned = val.replace(/\D/g, ''); //<-- regex
   
   // Update the input if it was modified
@@ -96,27 +98,9 @@ function onlyAllowLetters()
 {
   let val = this.value();
   
-  // Remove any non-digit characters
+  // Remove any non-digit characters [numbers and the like]
   let cleaned = val.replace(/\d/g, ''); //<-- regex
   
   // Update the input if it was modified
   if (val !== cleaned) this.value(cleaned);
 }
-
-/*
-3) Moveable Type
-o Introduced in tutorial 5
-o Explores the use of fonts, text, and time as inputs
-o You should explore how the meaning of text can be enhanced through careful use of
-motion design, interactivity and temporal dynamics (animation). Thinking of networks of
-data, you might also explore how textual data moves from one place to another to produce
-new relations and information. How can computational visualisations aid interpretation of
-textual data? What are the poetic, affective and playful dimensions of text as a visual
-medium?
-*/
-
-//Ceasar Cipher
-
-//Get User Input
-//Do calculation + visualise it
-//Display result

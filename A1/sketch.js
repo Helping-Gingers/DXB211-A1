@@ -1,3 +1,5 @@
+//Initial Setup of variables to be used throughout the program
+
 let drawing = [];
 let currentStroke = [];
 let isDrawing = false;
@@ -10,13 +12,13 @@ function setup()
 {
   createCanvas(800, 600);
   background(255);
-  intro();
+  intro(); //Call the first function
 }
 
 let i1 = "Hello! And welcome to this Drawing Program.";
 let i2 = "This program can replay whatever you've drawn through the use of Arrays! \n Draw something, and then hit 'p' to watch it be re-drawn. Hit 'r' to reset.";
 
-async function intro() 
+async function intro() //A worded explanation to the program using async [which is cool and I like it cause its similar to how I use IEnumerators in c#]
 {
   background(255);
   textAlign(CENTER);
@@ -34,7 +36,7 @@ async function intro()
 
 function draw() 
 {
-  if (isDrawing) 
+  if (isDrawing) //note the mouse position, record it, and then draw it.
   {
     let currPoint = { x: mouseX, y: mouseY };
     currentStroke.push(currPoint);
@@ -45,7 +47,7 @@ function draw()
     }
   }
 
-  if (replaying) 
+  if (replaying) //if there is more than one stroke, and more than one point to draw, draw the 0th stroke, and then iterate till all strokes are completed.
   {
     if (strokeIndex < drawing.length) 
     {
@@ -70,13 +72,13 @@ function draw()
   }
 }
 
-function mousePressed() 
+function mousePressed()
 {
   isDrawing = true;
   currentStroke = [];
 }
 
-function mouseReleased() 
+function mouseReleased() //send the data for drawing stuffs
 {
   isDrawing = false;
   if (currentStroke.length > 0) 
@@ -87,7 +89,7 @@ function mouseReleased()
 
 function keyPressed() 
 {
-  if (key === 'r') 
+  if (key === 'r') //reset everything
   {
     background(255);
     drawing = [];
@@ -97,7 +99,7 @@ function keyPressed()
     pointIndex = 1;
   }
 
-  if (key === 'p') 
+  if (key === 'p') //activate replay mode
   {
     if (drawing.length > 0) 
     {
